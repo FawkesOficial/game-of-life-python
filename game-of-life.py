@@ -9,7 +9,7 @@ def debug(text):
 
 
 class World:
-    def __init__(self, width=40, height=40, dead="⬛", alive="⬜", refresh_rate=1, clear_screen=True, wait_for_input=False, stop_after_no_changes=False):
+    def __init__(self, width=40, height=40, dead="⬜", alive="⬛", refresh_rate=1, clear_screen=True, wait_for_input=False, stop_after_no_changes=False, dark_theme=False):
         self.width = width
         self.height = height
         self.dead = dead
@@ -19,9 +19,12 @@ class World:
         self.wait_for_input = wait_for_input
         self.stop_after_no_changes = stop_after_no_changes
         self.total_no_of_cells = self.width * self.height
+        if dark_theme:
+            self.dead = "⬛"
+            self.alive = "⬜"
 
 
-        self.grid = [[dead for i in range(self.width)] for j in range(self.height)]
+        self.grid = [[self.dead for i in range(self.width)] for j in range(self.height)]
 
 
     def screen(self):
@@ -205,9 +208,9 @@ class World:
 debug_mode = False
 
 if debug_mode:
-    world = World(clear_screen=False, dead=" ", alive="X", wait_for_input=True)
+    world = World(clear_screen=False, dead=" ", alive="X", wait_for_input=True, dark_theme=True)
 else:
-    world = World(refresh_rate=1/60, wait_for_input=False, stop_after_no_changes=True)
+    world = World(refresh_rate=1/60, wait_for_input=False, stop_after_no_changes=True, dark_theme=False)
 
 
 #world.make_glider()
